@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicant Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> </head>
+<body id="dashboard-page">
+    <div class="container">
+        <header>
+            <h1>Applicant Dashboard</h1>
+            <a href="index.html" class="btn-secondary">← Back to New Application</a>
+        </header>
+
+        <div class="dashboard-grid">
+            <div class="card text-center">
+                <h2>AI Credit Score</h2>
+                <div id="scoreDisplay" class="score-circle">--</div>
+                <h3 id="riskLevel">Risk Level: --</h3>
+            </div>
+
+            <div class="card">
+                <h2>Explainable AI Breakdown</h2>
+                <ul id="aiReasons" class="reasons-list">
+                    </ul>
+            </div>
+        </div>
+
+        <div class="card mt-2">
+            <h2>Blockchain Ledger Record</h2>
+            <p><i>Data secured and simulated via local cryptography.</i></p>
+            <div class="ledger-box">
+                <p><strong>Applicant:</strong> <span id="ledgerName"></span></p>
+                <p><strong>Timestamp:</strong> <span id="ledgerTime"></span></p>
+                <p><strong>SHA-256 Hash Block:</strong> <br><span class="hash-text" id="ledgerHash"></span></p>
+            </div>
+        </div>
+    </div>
+    <script src="js/apps.js"></script>
+</body>
+</html>

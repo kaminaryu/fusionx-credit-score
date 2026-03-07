@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FusionX Credit Scoring</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CityU FusionX Credit System</h1>
+            <p>Decentralized & Explainable AI Risk Assessment</p>
+        </header>
+
+        <div class="card">
+            <h2>Loan Application</h2>
+            <form id="creditForm">
+                <div class="form-group">
+                    <label>Applicant Name / ID Hash</label>
+                    <input type="text" id="applicantName" required placeholder="e.g. John Doe or User123">
+                </div>
+                <div class="form-group">
+                    <label>Monthly Gross Income (RM)</label>
+                    <input type="number" id="monthlyIncome" required placeholder="e.g. 4500">
+                </div>
+                <div class="form-group">
+                    <label>Total Monthly Debt Payments (RM)</label>
+                    <input type="number" id="monthlyDebt" required placeholder="e.g. 1500">
+                </div>
+                <div class="form-group">
+                    <label>Number of Open Credit Lines</label>
+                    <input type="number" id="creditLines" required placeholder="e.g. 3">
+                </div>
+                <div class="form-group">
+                    <label>Times 90+ Days Late on Payments</label>
+                    <input type="number" id="latePayments" required placeholder="e.g. 0">
+                </div>
+                <button type="submit" class="btn">Calculate AI Score</button>
+            </form>
+        </div>
+    </div>
+    <script src="js/apps.js"></script>
+</body>
+</html>
