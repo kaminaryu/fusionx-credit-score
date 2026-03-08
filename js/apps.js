@@ -8,18 +8,6 @@ function generateFakeHash(dataString) {
     return hash;
 }
 
-// Function to simulate Admin Login Security
-function checkAdminPassword() {
-    const password = prompt("🔒 Secure Bank Portal\n\nPlease enter the Admin PIN:");
-    
-    // The secret hackathon password
-    if (password === "2026") { 
-        window.location.href = "admin.html";
-    } else if (password !== null) { // If they didn't hit 'Cancel'
-        alert("❌ Access Denied. Incorrect PIN.");
-    }
-}
-
 // -----------------------------------------
 // PAGE 1: Handle the Application Form
 // -----------------------------------------
@@ -192,4 +180,26 @@ if (document.getElementById('admin-page')) {
     } else {
         tbody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>No applications found.</td></tr>";
     }
+}
+
+// -----------------------------------------
+// PAGE 4: Handle Admin Login
+// -----------------------------------------
+if (document.getElementById('login-page')) {
+    const loginForm = document.getElementById('loginForm');
+    
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const adminId = document.getElementById('adminId').value;
+        const adminPin = document.getElementById('adminPin').value;
+        const errorMsg = document.getElementById('loginError');
+
+        // The "Smoke and Mirrors" Hackathon Password
+        if (adminId === "admin" && adminPin === "2026") {
+            window.location.href = "admin.html";
+        } else {
+            errorMsg.style.display = "block"; // Show the error message
+        }
+    });
 }

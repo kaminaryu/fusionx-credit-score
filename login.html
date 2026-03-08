@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Admin Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body id="login-page">
+    <div class="container" style="max-width: 400px; margin-top: 50px;">
+        <header>
+            <h1>🔒 Secure Portal</h1>
+            <p>Authorized Bank Personnel Only</p>
+        </header>
+
+        <div class="card">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Admin ID</label>
+                    <input type="text" id="adminId" required placeholder="Enter ID">
+                </div>
+                <div class="form-group">
+                    <label>PIN / Password</label>
+                    <input type="password" id="adminPin" required placeholder="Enter PIN">
+                </div>
+                
+                <p id="loginError" style="color: #ef4444; font-size: 14px; display: none; margin-bottom: 10px;">❌ Invalid ID or PIN.</p>
+                
+                <button type="submit" class="btn">Login to Admin Dashboard</button>
+            </form>
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="index.html" class="btn-secondary" style="font-size: 14px;">← Back to Public Site</a>
+            </div>
+        </div>
+    </div>
+    <script src="/js/apps.js"></script>
+</body>
+</html>
