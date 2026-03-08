@@ -22,6 +22,9 @@ if (form) {
         const debt = parseFloat(document.getElementById('monthlyDebt').value);
         const latePayments = parseInt(document.getElementById('latePayments').value);
         
+        // NEW: Get utility payments data
+        const utilityPayments = parseInt(document.getElementById('utilityPayments').value) || 0;
+        
         // 2. The "Fake AI" Logic (Borrowing variables from ML repos)
         let score = 500; // Base score
         let reasons = []; // Explainable AI array
@@ -42,7 +45,7 @@ if (form) {
             reasons.push("✅ Stable monthly income bracket.");
         }
 
-        // Logic 3: Delinquencies (Heavy penalty for late payments)
+       // Logic 3: Delinquencies (Heavy penalty for late payments)
         if (latePayments === 0) {
             score += 70;
             reasons.push("✅ Perfect payment history (0 late payments).");
@@ -50,6 +53,16 @@ if (form) {
             score -= (latePayments * 50);
             reasons.push(`❌ High risk: ${latePayments} late payment(s) over 90 days.`);
         }
+
+        // --- NEW: Logic 4: Alternative Data (Utility Payments) ---
+        if (utilityPayments >= 12) {
+            score += 60;
+            reasons.push(`✅ Alternative Data: ${utilityPayments} months of consistent utility/rent payments.`);
+        } else if (utilityPayments > 0) {
+            score += 20;
+            reasons.push("✅ Alternative Data: Starting to build consistent utility payment history.");
+        }
+        // ---------------------------------------------------------
 
         // Cap score between 300 and 850
         score = Math.max(300, Math.min(score, 850));
