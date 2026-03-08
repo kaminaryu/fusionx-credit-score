@@ -115,3 +115,41 @@ input {
 .admin-table th {
     background-color: var(--bg-color);
 }
+
+/* --- MOBILE RESPONSIVENESS (iPhones & Androids) --- */
+@media (max-width: 768px) {
+    /* 1. Make the main container take up more screen space on mobile */
+    .container {
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    /* 2. Give the cards slightly less padding so text fits better */
+    .card {
+        padding: 15px;
+        margin-bottom: 15px;
+        /* Crucial for Admin View: Lets the table scroll horizontally on small screens! */
+        overflow-x: auto; 
+    }
+
+    /* 3. Make the Admin table text not squish together */
+    .admin-table {
+        white-space: nowrap;
+    }
+
+    /* 4. Make all inputs and buttons full-width so they are easy to tap with a thumb */
+    input, select, .btn, .btn-secondary {
+        width: 100%;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    /* 5. Adjust header text sizes for mobile */
+    header h1 {
+        font-size: 24px;
+    }
+    header p {
+        font-size: 14px;
+    }
+}
