@@ -71,9 +71,13 @@ if (form) {
         const timestamp = new Date().toLocaleString();
         const blockHash = generateFakeHash(applicantName + score + timestamp);
 
-        // 4. Save everything to localStorage
+        // 4. Save to a LIST in localStorage (Upgraded for Admin View)
         const resultData = { applicantName, score, reasons, timestamp, blockHash };
-        localStorage.setItem('fusionx_latest_application', JSON.stringify(resultData));
+        
+        let applications = JSON.parse(localStorage.getItem('fusionx_applications')) || [];
+        applications.push(resultData); // Add new app to the end of the list
+        
+        localStorage.setItem('fusionx_applications', JSON.stringify(applications));
 
         // 5. Redirect to Dashboard
         window.location.href = 'dashboard.html';
@@ -84,11 +88,12 @@ if (form) {
 // PAGE 2: Handle the Dashboard Display
 // -----------------------------------------
 if (document.getElementById('dashboard-page')) {
-    // 1. Retrieve data from localStorage
-    const savedData = localStorage.getItem('fusionx_latest_application');
+    // 1. Retrieve the list from localStorage
+    const savedData = localStorage.getItem('fusionx_applications');
     
     if (savedData) {
-        const data = JSON.parse(savedData);
+        const applications = JSON.parse(savedData);
+        const data = applications[applications.length - 1]; // Get the newest one
 
         // 2. Populate Score Card
         document.getElementById('scoreDisplay').innerText = data.score;
@@ -143,3 +148,36 @@ if (document.getElementById('dashboard-page')) {
     }
 }
 
+// -----------------------------------------
+// PAGE 3: Handle the Bank Admin View
+// -----------------------------------------
+if (document.getElementById('admin-page')) {
+    const savedData = localStorage.getItem('fusionx_applications');
+    const tbody = document.getElementById('adminTableBody');
+
+    if (savedData) {
+        const applications = JSON.parse(savedData);
+        
+        // Reverse the array so newest applications show at the top
+        applications.reverse().forEach(app => {
+            let riskText = "Low Risk";
+            if (app.score < 600) riskText = "High Risk";
+            else if (app.score < 700) riskText = "Moderate Risk";
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${app.applicantName}</td>
+                <td><strong>${app.score}</strong></td>
+                <td>${riskText}</td>
+                <td class="hash-text" style="font-size: 12px;">0x${app.blockHash.substring(0, 16)}...</td>
+                <td>
+                    <button class="btn" style="padding: 5px 10px; font-size: 12px; background: #10b981; width: auto;">Approve</button>
+                    <button class="btn" style="padding: 5px 10px; font-size: 12px; background: #ef4444; width: auto;">Reject</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    } else {
+        tbody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>No applications found.</td></tr>";
+    }
+}

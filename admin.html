@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Admin Portal</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body id="admin-page">
+    <div class="container" style="max-width: 1000px;">
+        <header>
+            <h1>Bank Admin Portal</h1>
+            <p>Decentralized Application Ledger</p>
+            <a href="index.html" class="btn-secondary">← Back to Application Form</a>
+        </header>
+
+        <div class="card">
+            <h2>All Applications</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Applicant</th>
+                        <th>Score</th>
+                        <th>Risk Level</th>
+                        <th>Blockchain Hash (Truncated)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTableBody">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="/js/apps.js"></script>
+</body>
+</html>
