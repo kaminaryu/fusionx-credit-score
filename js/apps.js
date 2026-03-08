@@ -8,6 +8,18 @@ function generateFakeHash(dataString) {
     return hash;
 }
 
+// Function to simulate Admin Login Security
+function checkAdminPassword() {
+    const password = prompt("🔒 Secure Bank Portal\n\nPlease enter the Admin PIN:");
+    
+    // The secret hackathon password
+    if (password === "2026") { 
+        window.location.href = "admin.html";
+    } else if (password !== null) { // If they didn't hit 'Cancel'
+        alert("❌ Access Denied. Incorrect PIN.");
+    }
+}
+
 // -----------------------------------------
 // PAGE 1: Handle the Application Form
 // -----------------------------------------
