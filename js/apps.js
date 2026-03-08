@@ -84,6 +84,35 @@ if (document.getElementById('dashboard-page')) {
         else if (data.score < 700) riskText = "Moderate Risk";
         document.getElementById('riskLevel').innerText = `Risk Level: ${riskText}`;
 
+        // --- NEW: Draw the Chart.js Gauge ---
+        const ctx = document.getElementById('scoreChart').getContext('2d');
+        
+        // Pick a color based on the score
+        let chartColor = '#ef4444'; // Red for High Risk
+        if (data.score >= 700) chartColor = '#10b981'; // Green for Low Risk
+        else if (data.score >= 600) chartColor = '#f59e0b'; // Yellow for Moderate Risk
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Your Score', 'Remaining to 850'],
+                datasets: [{
+                    data: [data.score, 850 - data.score],
+                    backgroundColor: [chartColor, '#e5e7eb'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                rotation: -90, // Makes it a half-circle
+                circumference: 180, // Makes it a half-circle
+                cutout: '75%', // Makes the ring thinner
+                plugins: {
+                    legend: { display: false } // Hides the labels so it looks like a clean gauge
+                }
+            }
+        });
+        // ------------------------------------
+        
         // 3. Populate Explainable AI Reasons
         const reasonsList = document.getElementById('aiReasons');
         data.reasons.forEach(reason => {
@@ -100,3 +129,4 @@ if (document.getElementById('dashboard-page')) {
         document.getElementById('aiReasons').innerHTML = "<li>No data found. Please submit an application first.</li>";
     }
 }
+
