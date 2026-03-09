@@ -266,21 +266,44 @@ if (document.getElementById('admin-page')) {
     if (savedData) {
         const applications = JSON.parse(savedData);
         
+        // --- THIS IS THE MATH THAT FIXES THE ZEROS ---
+        let totalApps = applications.length;
+        let totalScore = 0;
+        let highRiskCount = 0;
+
+        applications.forEach(app => {
+            totalScore += app.score;
+            if (app.score < 600) highRiskCount++;
+        });
+
+        // This injects the math into your HTML cards
+        document.getElementById('kpiTotal').innerText = totalApps;
+        document.getElementById('kpiAvg').innerText = Math.round(totalScore / totalApps);
+        document.getElementById('kpiRisk').innerText = highRiskCount;
+        // ---------------------------------------------
+        
         // Reverse the array so newest applications show at the top
-        applications.reverse().forEach(app => {
+        applications.reverse().forEach((app, index) => {
             let riskText = "Low Risk";
-            if (app.score < 600) riskText = "High Risk";
-            else if (app.score < 700) riskText = "Moderate Risk";
+            let riskColor = "#16a34a"; // Green
+            
+            if (app.score < 600) { 
+                riskText = "High Risk"; 
+                riskColor = "#ef4444"; // Red
+            } else if (app.score < 700) { 
+                riskText = "Moderate Risk"; 
+                riskColor = "#facc15"; // Yellow
+            }
 
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td>${app.applicantName}</td>
                 <td><strong>${app.score}</strong></td>
-                <td>${riskText}</td>
-                <td class="hash-text" style="font-size: 12px;">0x${app.blockHash.substring(0, 16)}...</td>
-                <td>
-                    <button class="btn" style="padding: 5px 10px; font-size: 12px; background: #10b981; width: auto;">Approve</button>
-                    <button class="btn" style="padding: 5px 10px; font-size: 12px; background: #ef4444; width: auto;">Reject</button>
+                <td style="color: ${riskColor}; font-weight: 600;">${riskText}</td>
+                <td class="hash-text" style="font-size: 12px; font-family: monospace;">0x${app.blockHash.substring(0, 16)}...</td>
+                <td id="action-cell-${index}">
+                    <button onclick="processLoan(${index}, 'Approved')" class="btn" style="padding: 5px 10px; font-size: 12px; background: #10b981; width: auto;">Approve</button>
+                    <button onclick="processLoan(${index}, 'Rejected')" class="btn" style="padding: 5px 10px; font-size: 12px; background: #ef4444; width: auto;">Reject</button>
                 </td>
             `;
             tbody.appendChild(tr);
@@ -288,6 +311,13 @@ if (document.getElementById('admin-page')) {
     } else {
         tbody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>No applications found.</td></tr>";
     }
+}
+
+// NEW: Function to handle the Approve/Reject button clicks
+function processLoan(index, status) {
+    const cell = document.getElementById(`action-cell-${index}`);
+    const color = status === 'Approved' ? '#10b981' : '#ef4444';
+    cell.innerHTML = `<span style="color: ${color}; font-weight: bold; padding: 4px 8px; border-radius: 12px; background: ${color}20;">${status}</span>`;
 }
 
 // -----------------------------------------

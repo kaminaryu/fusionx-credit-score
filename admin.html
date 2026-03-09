@@ -13,8 +13,7 @@
             <p>Decentralized Application Ledger</p>
             <a href="index.html" class="btn-secondary">← Back to Application Form</a>
         </header>
-
-        <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 20px;">
+<div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 20px;">
             <div class="card text-center" style="padding: 15px;">
                 <h3 style="margin: 0; color: var(--text-muted); font-size: 14px;">Total Applications</h3>
                 <div id="kpiTotal" style="font-size: 32px; font-weight: 700; color: var(--text-main);">0</div>
@@ -27,6 +26,25 @@
                 <h3 style="margin: 0; color: var(--text-muted); font-size: 14px;">High Risk Alerts</h3>
                 <div id="kpiRisk" style="font-size: 32px; font-weight: 700; color: #ef4444;">0</div>
             </div>
+        </div>
+
+        <div class="card" style="overflow-x: auto;">
+            
+        <div class="card">
+            <h2>All Applications</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Applicant</th>
+                        <th>Score</th>
+                        <th>Risk Level</th>
+                        <th>Blockchain Hash (Truncated)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTableBody">
+                    </tbody>
+            </table>
         </div>
 
         <div class="card" style="overflow-x: auto;">
