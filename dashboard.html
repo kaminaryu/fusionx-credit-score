@@ -16,33 +16,50 @@
         </header>
 
         <div class="dashboard-grid">
-            <div class="card text-center">
-                <h2>AI Credit Score</h2>
+            <div class="card text-center" style="position: relative;">
+                <h2 style="margin-bottom: 25px;">AI Credit Score</h2>
                 
-                <div style="max-width: 250px; margin: 0 auto;">
+                <div style="max-width: 220px; margin: 0 auto; line-height: 0;">
                     <canvas id="scoreChart"></canvas>
                 </div>
-                
-                <div id="scoreDisplay" class="score-circle">--</div>
-                <h3 id="riskLevel">Risk Level: --</h3>
+
+                <div style="margin-top: 10px;">
+                    <div id="scoreDisplay" style="font-size: 56px; font-weight: 700; color: var(--text-main); line-height: 1;">--</div>
+                    <div id="riskLevelText" style="font-size: 18px; font-weight: 600; margin-top: 8px;">-- Risk</div>
+                </div>
             </div>
 
             <div class="card">
-                <h2>Explainable AI Breakdown</h2>
-                <ul id="aiReasons" class="reasons-list">
-                    </ul>
+                <h3 style="margin-top: 0; margin-bottom: 20px;">Explainable AI Breakdown</h3>
+                
+                <div id="aiReasons">
+                    <p>Loading AI insights...</p>
+                </div>
+                
             </div>
         </div>
 
-        <div class="card mt-2">
-            <h2>Blockchain Ledger Record</h2>
-            <p><i>Data secured and simulated via local cryptography.</i></p>
-            <div class="ledger-box">
-                <p><strong>Applicant:</strong> <span id="ledgerName"></span></p>
-                <p><strong>Timestamp:</strong> <span id="ledgerTime"></span></p>
-                <p><strong>SHA-256 Hash Block:</strong> <br><span class="hash-text" id="ledgerHash"></span></p>
+        <div class="card" style="background-color: #f8fafc; border: 1px solid #e2e8f0;">
+                <h3 style="margin-top: 0; margin-bottom: 15px; display: flex; align-items: center;">
+                    🔗 Smart Contract Receipt
+                    <span style="margin-left: auto; background: #10b981; color: white; font-size: 12px; padding: 3px 8px; border-radius: 12px;">Verified</span>
+                </h3>
+                
+                <div style="font-family: monospace; font-size: 13px; color: var(--text-main); line-height: 1.8;">
+                    <div><strong style="color: var(--text-muted);">Network:</strong> Ethereum (Sepolia Testnet)</div>
+                    <div><strong style="color: var(--text-muted);">Applicant Wallet:</strong> <span id="ledgerWallet" style="color: var(--primary);">--</span></div>
+                    <div><strong style="color: var(--text-muted);">Block Number:</strong> <span id="ledgerBlock">--</span></div>
+                    <div><strong style="color: var(--text-muted);">Timestamp:</strong> <span id="ledgerTime">--</span></div>
+                    <div><strong style="color: var(--text-muted);">Gas Fee Used:</strong> <span id="ledgerGas">--</span> ETH</div>
+                    
+                    <div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #cbd5e1;">
+                        <strong style="color: var(--text-muted); display: block; margin-bottom: 5px;">SHA-256 Transaction Hash:</strong>
+                        <div id="ledgerHash" style="background: #e2e8f0; padding: 8px; border-radius: 4px; word-break: break-all; font-size: 12px;">
+                            --
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
     </div>
     <script src="js/apps.js"></script>
 </body>
