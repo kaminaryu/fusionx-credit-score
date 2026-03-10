@@ -263,10 +263,20 @@ if (document.getElementById('admin-page')) {
     const savedData = localStorage.getItem('fusionx_applications');
     const tbody = document.getElementById('adminTableBody');
 
+    // NEW: A bulletproof, globally accessible function!
+    // We pass "this" (the button element) directly from the HTML
+    window.processLoan = function(buttonElement, status) {
+        const cell = buttonElement.parentElement; // Find the <td> that holds the button
+        const color = status === 'Approved' ? '#10b981' : '#ef4444';
+        
+        // Replace the inside of the <td> with a stylish badge
+        cell.innerHTML = `<span style="color: ${color}; font-weight: bold; padding: 4px 8px; border-radius: 12px; background: ${color}20;">${status}</span>`;
+    };
+
     if (savedData) {
         const applications = JSON.parse(savedData);
         
-        // --- THIS IS THE MATH THAT FIXES THE ZEROS ---
+        // --- Calculate Dashboard KPIs ---
         let totalApps = applications.length;
         let totalScore = 0;
         let highRiskCount = 0;
@@ -276,14 +286,13 @@ if (document.getElementById('admin-page')) {
             if (app.score < 600) highRiskCount++;
         });
 
-        // This injects the math into your HTML cards
         document.getElementById('kpiTotal').innerText = totalApps;
         document.getElementById('kpiAvg').innerText = Math.round(totalScore / totalApps);
         document.getElementById('kpiRisk').innerText = highRiskCount;
-        // ---------------------------------------------
+        // -------------------------------------
         
         // Reverse the array so newest applications show at the top
-        applications.reverse().forEach((app, index) => {
+        applications.reverse().forEach((app) => {
             let riskText = "Low Risk";
             let riskColor = "#16a34a"; // Green
             
@@ -301,9 +310,9 @@ if (document.getElementById('admin-page')) {
                 <td><strong>${app.score}</strong></td>
                 <td style="color: ${riskColor}; font-weight: 600;">${riskText}</td>
                 <td class="hash-text" style="font-size: 12px; font-family: monospace;">0x${app.blockHash.substring(0, 16)}...</td>
-                <td id="action-cell-${index}">
-                    <button onclick="processLoan(${index}, 'Approved')" class="btn" style="padding: 5px 10px; font-size: 12px; background: #10b981; width: auto;">Approve</button>
-                    <button onclick="processLoan(${index}, 'Rejected')" class="btn" style="padding: 5px 10px; font-size: 12px; background: #ef4444; width: auto;">Reject</button>
+                <td>
+                    <button onclick="window.processLoan(this, 'Approved')" class="btn" style="padding: 5px 10px; font-size: 12px; background: #10b981; width: auto; margin-right: 5px;">Approve</button>
+                    <button onclick="window.processLoan(this, 'Rejected')" class="btn" style="padding: 5px 10px; font-size: 12px; background: #ef4444; width: auto;">Reject</button>
                 </td>
             `;
             tbody.appendChild(tr);
