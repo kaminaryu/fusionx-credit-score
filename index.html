@@ -27,34 +27,40 @@
 
         <div class="card">
             <form id="creditForm">
-                <div class="form-group">
-                    <label>Applicant Name / ID Hash</label>
-                    <input type="text" id="applicantName" required placeholder="e.g. John Doe or User123">
-                </div>
-                <div class="form-group">
-                    <label>Monthly Gross Income (RM)</label>
-                    <input type="number" id="monthlyIncome" required placeholder="e.g. 4500">
-                </div>
-                <div class="form-group">
-                    <label>Total Monthly Debt Payments (RM)</label>
-                    <input type="number" id="monthlyDebt" required placeholder="e.g. 1500">
-                </div>
-                <div class="form-group">
-                    <label>Number of Open Credit Lines</label>
-                    <input type="number" id="creditLines" required placeholder="e.g. 3">
-                </div>
-                <div class="form-group">
-                    <label>Times 90+ Days Late on Payments</label>
-                    <input type="number" id="latePayments" required placeholder="e.g. 0">
-                </div>
-                
-                <div class="form-group">
-                    <label>Months of Consistent Utility/Rent Payments</label>
-                    <input type="number" id="utilityPayments" required placeholder="e.g. 12">
-                </div>
+            
+            <div class="form-group">
+                <label for="applicantName">Full Name</label>
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 5px;">Don't worry, we will cryptographically hash your name for privacy.</div>
+                <input type="text" id="applicantName" required placeholder="e.g., Ahmad bin Ali">
+            </div>
 
-                <button type="submit" class="btn">Calculate AI Score</button>
-            </form>
+            <div class="form-group">
+                <label for="monthlyIncome">Total Monthly Income (RM)</label>
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 5px;">Your total earnings from all jobs before taxes and deductions.</div>
+                <input type="number" id="monthlyIncome" required placeholder="e.g., 4000" min="0">
+            </div>
+
+            <div class="form-group">
+                <label for="monthlyDebt">Monthly Loan & Debt Payments (RM)</label>
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 5px;">Include car loans, personal loans, and minimum credit card payments.</div>
+                <input type="number" id="monthlyDebt" required placeholder="e.g., 1200" min="0">
+            </div>
+
+            <div class="form-group">
+                <label for="latePayments">Major Late Payments</label>
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 5px;">How many times have you been over 3 months late on a bank loan? (Put 0 if never)</div>
+                <input type="number" id="latePayments" required placeholder="0" min="0">
+            </div>
+
+            <div class="form-group">
+                <label for="utilityPayments">🚀 Web3 Score Boost: Rent & Utilities</label>
+                <div style="font-size: 12px; color: var(--primary); font-weight: 600; margin-bottom: 5px;">Link your non-bank bills (like TNB or rent) to increase your score!</div>
+                <input type="number" id="utilityPayments" required placeholder="e.g., 12 months" min="0">
+            </div>
+
+            <button type="submit" class="btn">Calculate AI Score & Generate Block</button>
+            
+        </form>
         </div>
     </div>
     <script src="js/utils.js"></script>

@@ -7,11 +7,15 @@ if (document.getElementById('dashboard-page')) {
 
         document.getElementById('scoreDisplay').innerText = data.score;
 
+        // -----------------------------------------
+        // --- STANDARD FLOW: Red on Left, Green on Right ---
         const ctx = document.getElementById('scoreChart').getContext('2d');
 
-        const segmentData = [111, 70, 90, 279]; 
-        const segmentColors = ['#16a34a', '#4ade80', '#facc15', '#ef4444']; 
+        // Logic 1: Standard colors and sizes (Red -> Yellow -> Light Green -> Dark Green)
+        const segmentData = [279, 90, 70, 111]; 
+        const segmentColors = ['#ef4444', '#facc15', '#4ade80', '#16a34a']; 
 
+        // --- Logic 2: Map the risk text to the standard color array ---
         const score = data.score;
         const riskDisplayElement = document.getElementById('riskLevelText');
         let riskValueText = '';
@@ -19,20 +23,21 @@ if (document.getElementById('dashboard-page')) {
 
         if (score < 600) {
             riskValueText = 'High Risk';
-            riskColor = segmentColors[3]; 
+            riskColor = segmentColors[0]; // Red is now at the START (Index 0)
         } else if (score < 700) {
             riskValueText = 'Moderate Risk';
-            riskColor = segmentColors[2]; 
+            riskColor = segmentColors[1]; // Yellow is Index 1
         } else if (score < 800) {
             riskValueText = 'Good Risk';
-            riskColor = segmentColors[1]; 
+            riskColor = segmentColors[2]; // Light Green is Index 2
         } else {
             riskValueText = 'Excellent Risk';
-            riskColor = segmentColors[0]; 
+            riskColor = segmentColors[3]; // Dark Green is now at the END (Index 3)
         }
 
         riskDisplayElement.innerText = riskValueText;
         riskDisplayElement.style.color = riskColor;
+        // -------------------------------------------------------------
 
         const gaugeNeedle = {
             id: 'gaugeNeedle',
@@ -41,8 +46,10 @@ if (document.getElementById('dashboard-page')) {
                 ctx.save();
                 
                 const percentage = (score - 300) / 550;
-                const invertedPercentage = 1 - Math.max(0, Math.min(1, percentage));
-                const angle = Math.PI + (invertedPercentage * Math.PI); 
+                
+                // --- STANDARD NEEDLE DIRECTION ---
+                // Low scores point Left (Red), high scores point Right (Green)
+                const angle = Math.PI + (Math.max(0, Math.min(1, percentage)) * Math.PI); 
 
                 const meta = chart.getDatasetMeta(0);
                 const cx = meta.data[0].x; 
@@ -52,6 +59,7 @@ if (document.getElementById('dashboard-page')) {
                 const outerRadius = meta.data[0].outerRadius;
                 const needleLength = innerRadius + (outerRadius - innerRadius) / 2;
 
+                // Draw the Needle
                 ctx.translate(cx, cy);
                 ctx.rotate(angle);
                 ctx.beginPath();
@@ -61,8 +69,10 @@ if (document.getElementById('dashboard-page')) {
                 ctx.fillStyle = '#1e293b'; 
                 ctx.fill();
 
+                // Rotate back to draw a centered dot
                 ctx.rotate(-angle);
 
+                // Center Anchor
                 ctx.beginPath();
                 ctx.arc(0, 0, 12, 0, Math.PI * 2); 
                 ctx.fillStyle = '#1e293b'; 
@@ -97,6 +107,7 @@ if (document.getElementById('dashboard-page')) {
             },
             plugins: [gaugeNeedle]
         });
+        // ------------------------------------
         
         const reasonsContainer = document.getElementById('aiReasons');
         reasonsContainer.innerHTML = ''; 

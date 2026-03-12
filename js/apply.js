@@ -12,15 +12,21 @@ if (form) {
         let score = 500; 
         let reasons = []; 
 
-        const dti = debt / income;
-        if (dti < 0.3) {
-            score += 100;
-            reasons.push({ icon: "✅", color: "#16a34a", title: "Healthy Debt-to-Income", desc: `Your DTI is ${(dti*100).toFixed(0)}%, which is well below the 30% risk threshold.`, advice: "Keep your credit card balances low to maintain this excellent ratio." });
-        } else if (dti > 0.5) {
-            score -= 80;
-            reasons.push({ icon: "⚠️", color: "#ef4444", title: "High Debt-to-Income", desc: `Your DTI is ${(dti*100).toFixed(0)}%, indicating a high portion of your income goes to debt.`, advice: "Focus on paying down high-interest debt before applying for new loans." });
+        // Logic 1: Debt-to-Income Ratio (with Zero-Income Protection)
+        if (income === 0) {
+            score -= 50;
+            reasons.push({ icon: "⚠️", color: "#ef4444", title: "No Income Reported", desc: "You reported RM 0 for monthly income.", advice: "A stable income is required to safely calculate your debt capacity." });
         } else {
-            reasons.push({ icon: "⚖️", color: "#facc15", title: "Moderate Debt-to-Income", desc: `Your DTI is ${(dti*100).toFixed(0)}%, which is average but leaves little room for emergencies.`, advice: "Try lowering your monthly debt payments to boost your score further." });
+            const dti = debt / income;
+            if (dti < 0.3) {
+                score += 100;
+                reasons.push({ icon: "✅", color: "#16a34a", title: "Healthy Debt-to-Income", desc: `Your DTI is ${(dti*100).toFixed(0)}%, which is well below the 30% risk threshold.`, advice: "Keep your credit card balances low to maintain this excellent ratio." });
+            } else if (dti > 0.5) {
+                score -= 80;
+                reasons.push({ icon: "⚠️", color: "#ef4444", title: "High Debt-to-Income", desc: `Your DTI is ${(dti*100).toFixed(0)}%, indicating a high portion of your income goes to debt.`, advice: "Focus on paying down high-interest debt before applying for new loans." });
+            } else {
+                reasons.push({ icon: "⚖️", color: "#facc15", title: "Moderate Debt-to-Income", desc: `Your DTI is ${(dti*100).toFixed(0)}%, which is average but leaves little room for emergencies.`, advice: "Try lowering your monthly debt payments to boost your score further." });
+            }
         }
 
         if (income > 5000) {
