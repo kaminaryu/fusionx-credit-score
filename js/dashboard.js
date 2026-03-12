@@ -33,10 +33,10 @@ if (document.getElementById('dashboard-page')) {
             riskValueText = 'Moderate Risk';
             riskColor = segmentColors[1]; // Yellow is Index 1
         } else if (score < 800) {
-            riskValueText = 'Good Risk';
+            riskValueText = 'Minimal Risk';
             riskColor = segmentColors[2]; // Light Green is Index 2
         } else {
-            riskValueText = 'Excellent Risk';
+            riskValueText = 'No Risk';
             riskColor = segmentColors[3]; // Dark Green is now at the END (Index 3)
         }
 

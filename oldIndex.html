@@ -3,53 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> CityU FusionX </title>
-    <link rel="stylesheet" href="css/home.css">
+    <title>FusionX Credit Scoring</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div class="container">
+        <header>
+            <h1 ondblclick="window.location.href='login.html'" style="user-select: none; cursor: default;">CityU FusionX Credit System</h1>
+            
+            <p>Decentralized & Explainable AI Risk Assessment</p>
+            
+            </header>
 
-    <div class="page">
-
-        <!-- Nav -->
-        <nav>
-            <span class="nav-logo"> FusionX Credit Scoring </span>
-            <a href="#creditForm" class="nav-btn">Calculate your credit</a>
-        </nav>
-
-        <!-- Hero -->
-        <div class="hero">
-            <div class="hero-bg"></div>
-            <div class="hero-content">
-                <h1 style="font-size: 3rem;">The Future Credit System</h1>
-                <p> Traditional banks often ignore the people who need credit the most because they don't have a credit card history. FusionX is a new, friendly way to prove your reliability.  </p>
-                <a href="#creditForm" class="hero-btn">Calculate your credit</a>
+        <div class="card" style="border-left: 4px solid var(--primary); background-color: #f8fafc; margin-bottom: 30px;">
+                <h3 style="color: var(--primary); margin-top: 0; margin-bottom: 10px;">Welcome to a Future Credit System 👋</h3>
+                
+                <p style="margin-top: 0; color: var(--text-main);">
+                    Traditional banks often ignore the people who need credit the most because they don't have a credit card history. FusionX is a new, friendly way to prove your reliability.
+                </p>
+                
+                <ul style="margin-bottom: 0; padding-left: 20px;">
+                    <li style="margin-bottom: 8px;"><strong>💡 Your Everyday Bills Count:</strong> Get rewarded for paying your rent, TNB, and water bills on time.</li>
+                    <li style="margin-bottom: 8px;"><strong>🤖 No Mystery Scores:</strong> Our smart system tells you exactly <em>why</em> your score went up or down, and gives you tips to improve it.</li>
+                    <li><strong>🔒 Ultra-Secure Privacy:</strong> Your data is locked down using advanced, tamper-proof technology to keep your identity safe.</li>
+                </ul>
             </div>
-        </div>
 
-        <!-- What is this -->
-        <div class="info-section">
-            <div>
-                <h2>Why Us?</h2>
-                <p> <strong> Your Everyday Bills Count: </strong> </p> 
-                <p style="text-indent: 2rem;"> Get rewarded for paying your rent, TNB, and water bills on time. </p>
-                <br />
-
-                <p> <strong> No Mystery Scores: </strong> </p> 
-                <p style="text-indent: 2rem;"> Our smart system tells you exactly why your score went up or down, and gives you tips to improve it. </p>
-                <br />
-
-                <p> <strong> Ultra-Secure Privacy: </strong> </p> 
-                <p style="text-indent: 2rem;"> Your data is locked down using advanced, tamper-proof technology to keep your identity safe. </p>
-                <br />
-            </div>
-            <div class="blobs">
-                <div class="blob blob-purple"></div>
-                <div class="blob blob-green"></div>
-            </div>
-        </div>
-
-        <!-- Form -->
-        <form id="creditForm">
+        <div class="card">
+            <form id="creditForm">
             
             <div class="form-group">
                 <label for="applicantName">Full Name</label>
@@ -84,9 +65,8 @@
             <button type="submit" class="btn">Calculate AI Score & Generate Block</button>
             
         </form>
-
+        </div>
     </div>
-
     <script src="js/utils.js"></script>
     <script src="js/apply.js"></script>
 </body>
