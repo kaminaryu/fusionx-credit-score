@@ -5,6 +5,11 @@ if (document.getElementById('dashboard-page')) {
         const applications = JSON.parse(savedData);
         const data = applications[applications.length - 1]; 
 
+        const TITLE = data.applicantName + "'s Dashboard"
+
+        document.getElementById("pageTitle").innerText = TITLE;
+        document.getElementById("dashboardTitle").innerText = TITLE;
+
         document.getElementById('scoreDisplay').innerText = data.score;
 
         // -----------------------------------------
@@ -112,28 +117,71 @@ if (document.getElementById('dashboard-page')) {
         const reasonsContainer = document.getElementById('aiReasons');
         reasonsContainer.innerHTML = ''; 
 
-        data.reasons.forEach(item => {
-            const div = document.createElement('div');
-            div.style.padding = "15px";
-            div.style.borderLeft = `4px solid ${item.color}`;
-            div.style.backgroundColor = "#f8fafc";
-            div.style.marginBottom = "15px";
-            div.style.borderRadius = "0 8px 8px 0";
-            div.style.boxShadow = "0 1px 2px rgba(0,0,0,0.05)";
-            
-            div.innerHTML = `
-                <div style="font-weight: 600; font-size: 16px; margin-bottom: 6px; color: var(--text-main);">
-                    ${item.icon} ${item.title}
-                </div>
-                <div style="font-size: 14px; color: var(--text-main); margin-bottom: 6px;">
-                    <strong>Analysis:</strong> ${item.desc}
-                </div>
-                <div style="font-size: 14px; color: var(--primary);">
-                    <strong>💡 Advice:</strong> ${item.advice}
-                </div>
-            `;
-            reasonsContainer.appendChild(div);
-        });
+        // Build carousel
+        let currentCard = 0;
+
+        function renderCard(index) {
+            const item = data.reasons[index];
+            console.log(data)
+            const container = document.getElementById('aiReasons');
+
+            container.style.opacity = '0';
+            container.style.transition = 'opacity 0.2s';
+
+            setTimeout(() => {
+                container.innerHTML = `
+                    <div style="
+                        background: #eee;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                    ">
+                        <!-- Header badge -->
+                        <div style="
+                            background: ${item.color};
+                            padding: 12px 10px;
+                            text-align: center;
+                        ">
+                            <span style="
+                                color: white;
+                                font-weight: 900;
+                                font-size: 15px;
+                                padding: 4px 16px;
+                                border-radius: 6px;
+                                font-family: monospace;
+                                letter-spacing: 0.5px;
+                            ">${item.title}</span>
+                        </div>
+
+                        <!-- Body -->
+                        <div style="padding: 18px 20px;">
+                            <p style="
+                                color: black;
+                                font-size: 14px;
+                                margin: 0 0 14px 0;
+                                line-height: 1.6;
+                            ">${item.desc}</p>
+
+                            <p style="
+                                color: ${item.color};
+                                font-size: 13px;
+                                margin: 0;
+                                line-height: 1.6;
+                            ">💡 ${item.advice}</p>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('cardCounter').innerText = `${index + 1} / ${data.reasons.length}`;
+                container.style.opacity = '1';
+            }, 150);
+        }
+
+        window.changeCard = function(dir) {
+            currentCard = (currentCard + dir + data.reasons.length) % data.reasons.length;
+            renderCard(currentCard);
+        };
+
+        renderCard(0);
 
         document.getElementById('ledgerWallet').innerText = data.walletAddress;
         document.getElementById('ledgerBlock').innerText = data.blockNumber;

@@ -1,6 +1,6 @@
 :root {
     --primary: #2563eb;
-    --bg-color: #f3f4f6;
+    --bg-color: #e0e0e0;
     --card-bg: #ffffff;
     --text-main: #1f2937;
     --text-light: #6b7280;
@@ -31,6 +31,11 @@ header {
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     margin-bottom: 20px;
+}
+
+.card > h2 {
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .form-group {
